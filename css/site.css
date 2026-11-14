@@ -739,3 +739,6 @@ html[lang='ar'] .appr-card h3 { line-height: 1.65; letter-spacing: 0; }
 .h2-lines { text-wrap: wrap; max-width: none; }
 .h2-lines span { display: block; }
 @media (min-width: 900px) { .h2-lines span { white-space: nowrap; } }
+
+/* Mobile menu: the page you are on is marked in gold */
+.drawer li a[aria-current='page'] { color: var(--gold); }
