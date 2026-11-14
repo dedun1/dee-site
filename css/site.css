@@ -793,3 +793,7 @@ html { background: var(--ink); }
   .diagram:not(.sdraw) svg > text { display: none; }
   .diagram .diagram-key, .diagram .diagram-note { padding-inline: 10px; }
 }
+
+/* a single portrait photo in a method step takes half the column, not all of it */
+.steps .st-img.st-tall img:only-child { grid-column: 1 / -1; width: 50%; margin-inline: auto; }
+@media (max-width: 640px) { .steps .st-img.st-tall img:only-child { width: 64%; } }
