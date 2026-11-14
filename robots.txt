@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dedun1.github.io/dee-site/sitemap.xml
