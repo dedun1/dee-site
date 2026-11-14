@@ -235,7 +235,7 @@
     slides();
     restoreFilter();
     onScroll();
-    if (doc.readyState === 'complete') warmSoon(); else window.addEventListener('load', warmSoon, { once: true });
+    if (doc.readyState === 'complete') { loadAhead(); warmSoon(); } else window.addEventListener('load', function () { loadAhead(); warmSoon(); }, { once: true });
     doc.querySelectorAll('.sec-head > *, .statement .wrap > *, .cta .wrap > *, .feature > *, .lead-fig, .spec > div, .client-wall li, .phero-facts > div, .pnav-item, .quote-card, .sband dl > div').forEach(function (el) { el.classList.add('reveal'); });
     doc.querySelectorAll('.reveal').forEach(function (el) {
       var sib = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.classList.contains('reveal'); });
@@ -245,7 +245,7 @@
     if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); }
     else {
       if (io) io.disconnect();
-      io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); count(en.target); } }); }, { rootMargin: '0px 0px 12% 0px' });
+      io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); count(en.target); } }); }, { rootMargin: '0px 0px 70% 0px' });
       items.forEach(function (el) { io.observe(el); });
       doc.querySelectorAll('[data-count]').forEach(function (el) { io.observe(el); });
     }
@@ -289,6 +289,17 @@
   ['pointerenter', 'touchstart', 'focusin'].forEach(function (ev) {
     doc.addEventListener(ev, function (e) { var a = e.target.closest && e.target.closest('a[href]'); if (a) warmLink(a); }, { passive: true, capture: true });
   });
+  /* Photos further down the page start downloading as soon as the first screen is ready,
+     in page order, so they are already there when the visitor scrolls to them. */
+  function loadAhead() {
+    var c = navigator.connection; if (c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+    var imgs = Array.prototype.slice.call(doc.querySelectorAll('img[loading="lazy"]')), i = 0;
+    (function next() {
+      var n = 0;
+      while (i < imgs.length && n < 4) { imgs[i].loading = 'eager'; i++; n++; }
+      if (i < imgs.length) setTimeout(next, 250);
+    })();
+  }
   function warmSoon() { if ('requestIdleCallback' in window) requestIdleCallback(warm, { timeout: 2500 }); else setTimeout(warm, 1500); }
   window.DEE = { init: init };
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();
