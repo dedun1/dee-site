@@ -12,9 +12,13 @@
     var lang = t.closest('a.lang, a[hreflang]');
     if (lang) { try { localStorage.setItem('dee-lang', lang.getAttribute('lang') || 'ar'); } catch (err) {} }
   });
+  var menuY = 0;
   function setMenu(open) {
     var was = doc.documentElement.classList.contains('menu-open');
+    /* Freeze the page in place while the menu is open (works on iPhone Safari), and put it back exactly where it was on close. */
+    if (open && !was) { menuY = window.scrollY; doc.body.style.top = -menuY + 'px'; }
     doc.documentElement.classList.toggle('menu-open', open);
+    if (!open && was) { doc.body.style.top = ''; window.scrollTo({ top: menuY, left: 0, behavior: 'instant' }); }
     var btn = doc.querySelector('[data-menu]');
     if (btn) { btn.setAttribute('aria-expanded', String(open)); if (was && !open) btn.focus(); }
   }
