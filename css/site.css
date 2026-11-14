@@ -783,3 +783,13 @@ html { background: var(--ink); }
 @media (min-width: 900px) { .sdraw { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 44px; align-items: center; } .sdraw-key { font-size: 17px; gap: 18px; } }
 .sdraw .tg { transform-box: fill-box; transform-origin: center; }
 @media (max-width: 640px) { .sdraw { padding: 14px 8px 18px; } .sdraw .tg { transform: scale(1.3); } .sdraw-side { padding-inline: 8px; } }
+/* v7: no diagram scrolls sideways on phones. Each one fits the screen width, with larger number tags and the tiny in-drawing labels dropped. */
+.diagram .tg { transform-box: fill-box; transform-origin: center; }
+@media (max-width: 640px) {
+  .diagram { overflow: visible; padding: 14px 6px 18px; }
+  .diagram-scroll .diagram { padding-inline: 6px; margin-inline: -8px; }
+  .diagram svg { min-width: 0; display: block; }
+  .diagram:not(.sdraw) .tg { transform: scale(1.6); }
+  .diagram:not(.sdraw) svg > text { display: none; }
+  .diagram .diagram-key, .diagram .diagram-note { padding-inline: 10px; }
+}
