@@ -771,3 +771,15 @@ html { background: var(--ink); }
   .cta--photo .wrap { grid-template-columns: 1fr; align-items: start; }
   .cta--photo .wrap > * { max-width: 50%; }
 }
+
+/* v6: per-service system drawings. Fit the phone width, no sideways scroll; key sits beside the drawing on desktop. */
+.sdraw { display: grid; gap: 24px; overflow: visible; }
+.sdraw svg { min-width: 0; display: block; }
+.sdraw-key { grid-template-columns: 1fr; margin-top: 0; gap: 14px; }
+.sdraw-key li { align-items: flex-start; line-height: 1.45; }
+.sdraw-key .num { align-self: flex-start; margin-top: 1px; }
+.section--sys + .section--dark { padding-top: 0; }
+@media (min-width: 640px) { .sdraw-key { grid-template-columns: 1fr; } }
+@media (min-width: 900px) { .sdraw { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 44px; align-items: center; } .sdraw-key { font-size: 17px; gap: 18px; } }
+.sdraw .tg { transform-box: fill-box; transform-origin: center; }
+@media (max-width: 640px) { .sdraw { padding: 14px 8px 18px; } .sdraw .tg { transform: scale(1.3); } .sdraw-side { padding-inline: 8px; } }
