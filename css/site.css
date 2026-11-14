@@ -691,7 +691,7 @@ html[lang='ar'] .appr-card h3 { line-height: 1.65; letter-spacing: 0; }
 @media (min-width: 900px) { .diagram-key--links { grid-template-columns: repeat(5, auto); justify-content: space-between; } }
 .pmap svg { width: 100%; height: auto; border: 1px solid var(--line); background: var(--paper-2); }
 .pmap svg text { font-family: var(--sans); }
-@media (max-width: 640px) { .pmap { overflow-x: auto; } .pmap svg { min-width: 620px; } }
+
 .checks { list-style: none; padding: 0; margin: 0; display: grid; border-top: 2px solid var(--ink); }
 .checks li { display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 20px 0; border-bottom: 1px solid var(--line); }
 .checks .num { font-family: var(--num); font-size: 13px; color: var(--red); padding-top: 5px; grid-row: span 3; }
@@ -723,3 +723,19 @@ html[lang='ar'] .appr-card h3 { line-height: 1.65; letter-spacing: 0; }
 /* New hero photos are framed on the people, not on the ceiling */
 .hero-bg img { object-position: 50% 32%; }
 .hero::before { background: linear-gradient(to top, rgba(21, 23, 26, .97) 0%, rgba(21, 23, 26, .78) 42%, rgba(21, 23, 26, .5) 100%); }
+
+/* Map: a wide drawing on large screens, a compact one with a text key on phones. Never scrolls sideways. */
+.pmap-narrow, .pmap-key { display: none; }
+@media (max-width: 760px) {
+  .pmap-wide { display: none; }
+  .pmap-narrow { display: block; }
+  .pmap-key { display: grid; gap: 0; list-style: none; padding: 0; margin: 14px 0 0; border-top: 2px solid var(--ink); }
+  .pmap-key li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .pmap-key .num { width: 34px; height: 34px; border-radius: 50%; background: var(--red); color: #fff; font-family: var(--num); font-size: 13px; display: inline-flex; align-items: center; justify-content: center; }
+  .pmap-key strong { display: block; font-weight: 600; line-height: 1.4; }
+  .pmap-key em { display: block; font-style: normal; color: var(--ink-2); font-size: 14.5px; margin-top: 2px; }
+}
+/* Headings written as fixed lines: each sentence group stays on its own line where there is room */
+.h2-lines { text-wrap: wrap; max-width: none; }
+.h2-lines span { display: block; }
+@media (min-width: 900px) { .h2-lines span { white-space: nowrap; } }
